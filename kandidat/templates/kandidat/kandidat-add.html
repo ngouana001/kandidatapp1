@@ -1,0 +1,129 @@
+{% extends 'kandidat/base.html' %}
+
+{% block content %}
+
+    <div class="mx-4 md:mx-12 my-8 flex items-center justify-center">
+        <div class="form__container flex flex-col p2 gap-4 my-4 border p-4 rounded-xl shadow">
+            <h3 class="text-slate-800 text-3xl font-normal">
+                Add  Kandidat
+            </h3>
+            <p class="text-xl text-red-500 font-semibold hidden">
+
+            </p>
+            <!-- Formular-->
+                <form class="" id="form">
+                    <div class="mb-6">
+                        <label for="Voname" class="block mb-2 text-xl font-normal text-gray-900 dark:text-gray-300"> Vorname</label>
+                        <input type="text" id="firstname" minlength="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 peer peer-invalid:border-1 peer-invalid:border-red-500 peer-invalid:ring-1 peer-invalid:ring-red-500" placeholder=" Vorname eingeben" required="">
+
+                    </div>
+                    <div class="mb-6">
+                        <label for="lastname" class="block mb-2 text-xl font-normal text-gray-900 dark:text-gray-300">Nachname</label>
+                        <input type="text" id="lastname" minlength=""5 class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:ring-2 peer peer-invalid:border-1 peer-invalid:border-red-500 peer-invalid:ring-1 peer-invalid:ring-red-500" placeholder="Nachname eingeben" required="">
+
+                    </div>
+                    <div class="mb-6">
+                        <label for="Email" class="block mb-2 text-xl font-normal text-gray-900 dark:text-gray-300"> Email</label>
+                        <input type="Email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:ring-2 peer peer-invalid:border-1 peer-invalid:border-red-500 peer-invalid:ring-1 peer-invalid:ring-red-500" placeholder="Name@example.com" required="">
+
+                    </div>
+                    <div class="flex items-center jutify-start py-4 gap-4">
+                        <div class="flex items-center pl-4 rounded ">
+                            <input id="bordered-radio-1" type="radio" value="männlich" name="sex" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 sex">
+                            <label for="bordered-radio-1" class="py-4 ml-2 w-full text-xl font-medium text-gray-900 dark:text-gray-300">männlich</label>
+                        </div>
+                        <div class="flex items-center pl-4 rounded">
+                            <input checked id="bordered-radio-2" type="radio" value="weiblich" name="sex" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 sex">
+                            <label for="bordered-radio-2" class="py-4 ml-2 w-full text-xl font-medium text-gray-900 dark:text-gray-300 ">weiblich</label>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label for="phone" class="block mb-2 text-xl font-normal text-gray-900 dark:text-gray-300 "> Nummer</label>
+                        <input type="text" minlength="7" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:ring-2 peer peer-invalid:border-1 peer-invalid:border-red-500 peer-invalid:ring-1 peer-invalid:ring-red-500" placeholder="+4958648996" required="">
+
+                    </div>
+                    <div class="mb-6">
+                        <label for="phone" class="block mb-2 text-xl font-normal text-gray-900 dark:text-gray-300 ">Beschreibung</label>
+                        <textarea type="text" minlength="7" id="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:ring-2 peer peer-invalid:border-1 peer-invalid:border-red-500 peer-invalid:ring-1 peer-invalid:ring-red-500" placeholder="hier text schreiben..." required=""></textarea>
+                    </div>
+                    <div class="flex items-center my-6,justify-center">
+                        <div class="flex items-center h-5">
+                            <input id="adult" type="checkbox" value="" class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" required="">
+                        </div>
+                        <label for="remember" class="ml-2 text-xl font-bold text-gray-900 dark:text-gray-300">Ich bin kein Erwachsener</label>
+                    </div>
+                    {% csrf_token %}
+                    <button type="Einreichen" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-normal rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-4" id="submit">Einreichen</button>
+                </form>
+
+            <!-- Formularende -->
+
+        </div>
+    </div>
+
+    {% block script %}
+
+    <script>
+
+        $('document').ready(()=>{
+            console.log(window.location.origin)
+            var endpoint = window.location.origin
+            const collectData = () =>{
+                let firstname = $('#firstname').val()
+                let lastname = $('#lastname').val()
+                let email = $('#email').val()
+                let phone = $('#phone').val()
+                let is_adult = $('#adult:checked').val() === undefined ? false : true
+                let sex = $('.sex:checked').val()
+                let description = $('#description').val()
+
+                const data = {
+                    "firstname":firstname,
+                    "lastname":lastname,
+                    "email":email,
+                    "phone":phone,
+                    "adult":is_adult,
+                    "sex":sex,
+                    "description":description
+                }
+
+                return data;
+            }
+            const sendData = async (data)=>{
+                 fetch(`${endpoint}/api/kandidaten`,{
+                    method: 'POST',
+                    headers:{
+                        "content-type": "application/json",
+                        "X-CSRFToken":getCookie("csrftoken")
+                    },
+                    body: JSON.stringify({'Vorname':data.firstname,'Nachname':data.lastname,'geschlecht':data.sex,'email':data.email,'Nummer':data.phone,'ist_erwachsene':data.adult,"Beschreibung":data.description})
+                 })
+                 .then(data=>{
+                    if (data.status === 201 || data.status === 200){
+                        document.location.replace("{% url 'kandidat-home' %}")
+                        return rest
+                    }
+                    else{
+                        document.location.reload()
+                        console.log(rest.status)
+                    }
+
+                    return data.json()
+                })
+                 .then((rest)=>rest)
+                 .then(data=>{
+                    console.log(data)
+                 })
+            }
+            $('#submit').on('click',(e)=>{
+                e.preventDefault();
+                data = collectData();
+                sendData(data);
+            })
+        })
+
+    </script>
+
+    {% endblock %}
+
+{% endblock %}
