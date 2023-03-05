@@ -132,3 +132,24 @@ def kandidat_delete_all(request):
     delete = Kandidat.objects.all().delete()
 
     return redirect("kandidat-home")
+
+
+def register(request):
+    if request.user.is_authenticated:
+        return redirect("kandidat-home")
+    form =  RegisterForm()
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        confirm = request.POST.get('confirm')
+        password = request.POST.get('password')
+        if password != confirm:
+            return render(request,'kandidat/register.html',{'error':True})
+        if form.is_valid():
+            password = form.cleaned_data['password']
+            username = form.cleaned_data['username']
+            try:
+                get_user_model().objects.create(username=username,password=make_password(password))
+            except:
+                return redirect('kandidat-home')
+            return redirect('kandidat-home')
+    return render(request,'kandidat/register.html',{'form':form})

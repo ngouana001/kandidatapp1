@@ -1,6 +1,6 @@
 from kandidat import views
 from django.urls import path, re_path
-from kandidat.views import home,kandidat_add,kandidat_update,kandidat_all,kandidat_home,kandidat_delete,kandidat_delete_all
+from kandidat.views import home,kandidat_add,kandidat_update,kandidat_all,kandidat_home,kandidat_delete,kandidat_delete_all,register
 
 urlpatterns = [
     re_path(r'^api/kandidaten$', views.kandidaten_list),
@@ -13,5 +13,6 @@ urlpatterns = [
     path('kandidat/update/<int:id>',kandidat_update,name='kandidat-update'),
     path('kandidat/delete/<int:id>',kandidat_delete,name="kandidat-delete"),
     path('kandidat/all/delete',kandidat_delete_all,name="kandidat-delete-all"),
+    path('register',register,name='register'),
 
 ]

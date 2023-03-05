@@ -1,0 +1,57 @@
+{% extends 'kandidat/base.html' %} {% block content %}
+
+<div class="w-full h-[80vh] flex items-center justify-center">
+  <form method="post" class="flex flex-col gap-2 p-3 shadow-md">
+    <h2 class="text-center text-2xl font-semibold text-gray-800">
+      Registrierung
+    </h2>
+    {% if error %}
+    <p class="text-red-500">Bitte überprüfen Sie Ihre Daten</p>
+    <p class="text-red-500">wenn der Benutzername bereits existiert</p>
+    {% endif %}
+    <fieldset class="flex flex-col gap-2 items-start justify-center">
+      <label for="id_username" class="text-gray-700 text-xl"
+        >Benutzername</label
+      >
+      <input
+        type="text"
+        name="username"
+        placeholder="Benutzername"
+        id="id_username"
+        class="font-normal text-xl text-gray-700 border-2 border-gray-700 outline-none focu:border-gray-700 rounded-md hover:outline-none focus:outline-none focus:ring focus:ring-gray-200"
+      />
+    </fieldset>
+    <fieldset class="flex flex-col gap-2 items-start justify-center">
+      <label for="id_password" class="text-gray-700 text-xl">Passwort</label>
+      <input
+        type="password"
+        name="password"
+        placeholder="Passwort"
+        id="id_password"
+        class="font-normal text-xl text-gray-700 border-2 border-gray-700 outline-none focu:border-gray-700 rounded-md hover:outline-none focus:outline-none focus:ring focus:ring-gray-200"
+      />
+    </fieldset>
+    <fieldset class="flex flex-col gap-2 items-start justify-center">
+      <label for="confirm" class="text-gray-700 text-xl"
+        >passwort bestätigen</label
+      >
+      <input
+        type="password"
+        name="confirm"
+        placeholder="passwort bestätigen"
+        id="confirm"
+        class="font-normal text-xl text-gray-700 border-2 border-gray-700 outline-none focu:border-gray-700 rounded-md hover:outline-none focus:outline-none focus:ring focus:ring-gray-200"
+      />
+    </fieldset>
+    <fieldset class="flex gap-2 items-center justify-between my-4">
+      <input
+        type="submit"
+        value="Register"
+        class="leading-none text-2xl bg-blue-500 text-white px-4 py-2 rounded-sm hover:shadow hover:shadow-blue-400 cursor-pointer rounded rounded-md"
+      />
+    </fieldset>
+    {% csrf_token %}
+  </form>
+</div>
+
+{% endblock %}
