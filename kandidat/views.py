@@ -176,3 +176,7 @@ def register(request):
                 return redirect('login')
             return redirect('login')
     return render(request,'kandidat/register.html',{'form':form})
+
+def signout(request):
+    logout(request)
+    return redirect("login")
