@@ -69,15 +69,15 @@ def kandidaten_list_erwachsene(request):
     if request.method == 'GET':
         kandidat_serializer = KandidatSerializer(kandidat, many=True)
         return JsonResponse(kandidat_serializer.data, safe=False)
-
+@login_required(login_url='login')
 def home(request):
 
     return render(request,'kandidat/layout.html')
-
+@login_required(login_url='login')
 def kandidat_add(request):
 
     return render(request,'kandidat/kandidat-add.html',{'current':'add'})
-
+@login_required(login_url='login')
 def kandidat_update(request,id):
 
     kandidat = ""
@@ -93,7 +93,7 @@ def kandidat_update(request,id):
 
 
 #die Funktion, um alle Benutzer und den ersten Benutzer in der Liste zurückzugeben
-
+@login_required(login_url='login')
 def kandidat_all(request,id):
 
     candidats = Kandidat.objects.all()
@@ -109,6 +109,7 @@ def kandidat_all(request,id):
 
 #Funktion, um einen bestimmten zurückzugeben
 
+@login_required(login_url='login')
 def kandidat_home(request):
 
     candidats = Kandidat.objects.all()
@@ -119,6 +120,7 @@ def kandidat_home(request):
     single = id = Kandidat.objects.first()
     return render(request,'kandidat/kandidat-all.html',{'current':'all',"id":id,"candidats":candidats,"single":single})
 
+@login_required(login_url='login')
 def kandidat_delete(request,id):
 
     try:
@@ -127,8 +129,54 @@ def kandidat_delete(request,id):
     except Kandidat.DoesNotExist:
         return redirect('kandidat-home')
 
+@login_required(login_url='login')
 def kandidat_delete_all(request):
 
     delete = Kandidat.objects.all().delete()
 
     return redirect("kandidat-home")
+
+def signin(request):
+
+    if request.user.is_authenticated:
+        return redirect("kandidat-home")
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        try :
+            user = authenticate(username=username,password=password)
+        except:
+            return render(request,'kandidat/login.html')
+
+        if user is None:
+            return render(request,'kandidat/login.html')
+        login(request,user)
+        return redirect('kandidat-home')
+
+    return render(request,'kandidat/login.html')
+
+
+
+def register(request):
+    if request.user.is_authenticated:
+        return redirect("kandidat-home")
+    form =  RegisterForm()
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        confirm = request.POST.get('confirm')
+        password = request.POST.get('password')
+        if password != confirm:
+            return render(request,'kandidat/register.html',{'error':True})
+        if form.is_valid():
+            password = form.cleaned_data['password']
+            username = form.cleaned_data['username']
+            try:
+                get_user_model().objects.create(username=username,password=make_password(password))
+            except:
+                return redirect('login')
+            return redirect('login')
+    return render(request,'kandidat/register.html',{'form':form})
+
+def signout(request):
+    logout(request)
+    return redirect("login")
